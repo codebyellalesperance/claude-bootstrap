@@ -4,13 +4,28 @@
 
 Claude Bootstrap is a zero-dependency POSIX shell installer that bootstraps Claude Code configuration for any project. One command generates a tailored CLAUDE.md, .claude/settings.json, and optional skill files based on auto-detected stack.
 
-## Absolute Rules
+## Conventions
 
-- NEVER use emojis anywhere in the project. No emojis in code, comments, commit messages, documentation, UI strings, error messages, logs, or any other output. This is non-negotiable.
-- NEVER use emojis in commit messages, branch names, PR titles, or PR descriptions.
-- NEVER add emojis to any file in this repository.
+This project follows `~/.claude/docs/conventions.md` (v1).
+Project-specific extensions below.
+
+### Absolute Rules (Project-Specific)
+
 - POSIX sh only -- no bash-isms (`[[ ]]`, arrays, `local`, process substitution).
 - Zero external dependencies -- no jq, python, node, or other tools.
+
+### Scopes
+
+`detect`, `generate`, `templates`, `core`, `build`, `test`, `ci`
+
+### Code Style Extensions
+
+- POSIX sh only -- test with `shellcheck lib/*.sh install.sh build.sh`
+- Use pipe-delimited lists for multi-value variables (e.g., `"react|vue|svelte"`)
+- Prefix internal helper functions with underscore (e.g., `_detect_language`)
+- No external dependencies -- everything must work with a bare POSIX shell
+- Quote all variable expansions
+- Use `printf` over `echo` for portable output
 
 ## Stack
 
@@ -51,65 +66,6 @@ claude-bootstrap/
     ci.yml                           -- shellcheck + tests on Ubuntu and macOS
     release.yml                      -- tag-triggered release with dist artifact
 ```
-
-## Git and GitHub
-
-### Repository
-
-- Remote: Push all work to GitHub (public repo).
-- Always ensure the remote is set before pushing.
-
-### Branch Naming
-
-```
-<type>/<short-description>
-```
-
-Types: `feat/`, `fix/`, `refactor/`, `chore/`, `docs/`, `test/`, `perf/`, `style/`
-
-Examples:
-- `feat/detect-phoenix-framework`
-- `fix/posix-printf-escaping`
-- `test/add-ruby-detection-fixtures`
-- `chore/ci-shellcheck-version-bump`
-
-### Commit Messages
-
-Follow Conventional Commits. No emojis. Format:
-
-```
-<type>(<scope>): <short summary>
-
-<optional body -- explain WHY, not WHAT>
-
-Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
-```
-
-Types: `feat`, `fix`, `refactor`, `chore`, `docs`, `test`, `perf`, `style`
-
-Scopes: `detect`, `generate`, `templates`, `core`, `build`, `test`, `ci`
-
-Examples:
-- `feat(detect): add Phoenix framework detection via mix.exs`
-- `fix(core): escape percent signs in printf format strings`
-- `test(detect): add Go CLI fixture and detection assertions`
-- `chore(ci): pin shellcheck to v0.10.0`
-
-Rules:
-- Subject line max 72 characters
-- Use imperative mood
-- Do not end subject with a period
-- Body should explain the reasoning, not restate the diff
-- Always include the Co-Authored-By trailer
-
-## Code Style
-
-- POSIX sh only -- test with `shellcheck lib/*.sh install.sh build.sh`
-- Use pipe-delimited lists for multi-value variables (e.g., `"react|vue|svelte"`)
-- Prefix internal helper functions with underscore (e.g., `_detect_language`)
-- No external dependencies -- everything must work with a bare POSIX shell
-- Quote all variable expansions
-- Use `printf` over `echo` for portable output
 
 ## Key Commands
 
