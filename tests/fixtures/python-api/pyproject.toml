@@ -1,0 +1,14 @@
+[project]
+name = "my-fastapi-app"
+description = "A FastAPI application"
+version = "0.1.0"
+
+[project.dependencies]
+fastapi = ">=0.100.0"
+uvicorn = ">=0.20.0"
+
+[tool.ruff]
+line-length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
